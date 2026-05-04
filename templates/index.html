@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Matcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <main class="container">
+        <section class="hero">
+            <p class="eyebrow">NLP Portfolio Project</p>
+            <h1>AI Resume Matcher</h1>
+            <p class="subtitle">Compare a resume with a job description using TF-IDF similarity, keyword extraction, and gap analysis.</p>
+        </section>
+
+        <form method="POST" class="matcher-form">
+            <div class="text-card">
+                <label for="resume_text">Resume Text</label>
+                <textarea id="resume_text" name="resume_text" placeholder="Paste your resume here...">{{ resume_text }}</textarea>
+            </div>
+            <div class="text-card">
+                <label for="job_text">Job Description</label>
+                <textarea id="job_text" name="job_text" placeholder="Paste the job description here...">{{ job_text }}</textarea>
+            </div>
+            <button type="submit">Analyze Match</button>
+        </form>
+
+        {% if result %}
+        <section class="results">
+            <div class="score-card">
+                <p>Match Score</p>
+                <h2>{{ result.score }}%</h2>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: {{ result.score }}%;"></div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="result-card">
+                    <h3>Matched Job Keywords</h3>
+                    {% if result.matched_keywords %}
+                        <div class="chips">
+                            {% for keyword in result.matched_keywords %}
+                                <span>{{ keyword }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No strong keyword overlap found.</p>
+                    {% endif %}
+                </div>
+
+                <div class="result-card warning">
+                    <h3>Missing Job Keywords</h3>
+                    {% if result.missing_keywords %}
+                        <div class="chips">
+                            {% for keyword in result.missing_keywords %}
+                                <span>{{ keyword }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>Your resume covers most of the important job keywords.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="result-card">
+                    <h3>Top Resume Keywords</h3>
+                    <ul>
+                        {% for keyword, count in result.resume_keywords %}
+                            <li>{{ keyword }} <strong>{{ count }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="result-card">
+                    <h3>Top Job Keywords</h3>
+                    <ul>
+                        {% for keyword, count in result.job_keywords %}
+                            <li>{{ keyword }} <strong>{{ count }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

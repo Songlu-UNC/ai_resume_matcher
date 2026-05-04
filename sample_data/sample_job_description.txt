@@ -1,0 +1,2 @@
+AI Data Intern
+We are looking for an intern with experience in Python, machine learning, natural language processing, data preprocessing, SQL, model evaluation, and web application development. The intern will work with structured and unstructured data, build analytical tools, and communicate insights to stakeholders.

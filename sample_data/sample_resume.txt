@@ -1,0 +1,2 @@
+Song Lu
+M.S. in Information Science candidate with experience in Python, SQL, Flask, PostgreSQL, data analysis, healthcare informatics, and web development. Built predictive models using Random Forest, Neural Network, ARIMA, and Support Vector Machine. Experienced with Pandas, Matplotlib, data cleaning, visualization, and database design.
